@@ -45,7 +45,7 @@ bool CRiverLayout::addRiverLayoutResource(wl_resource *resource, uint64_t monito
 }
 
 int CRiverLayout::removeRiverLayoutResource(wl_resource *resource) {
-  
+
   std::erase_if(m_lRiverLayoutResources, [&](const auto &rr) { return rr.resource == resource;});
 
   return m_lRiverLayoutResources.size();
@@ -69,7 +69,7 @@ SRiverWorkspaceData* CRiverLayout::getMasterWorkspaceData(const int& ws) {
 }
 
 std::string CRiverLayout::getLayoutName() {
-    return m_sRiverNamespace; 
+    return m_sRiverNamespace;
 }
 
 void CRiverLayout::moveWindowTo(CWindow* pWindow, const std::string& dir) {
@@ -282,7 +282,7 @@ void CRiverLayout::riverCommit(const char *layout_name, uint32_t serial) {
 		nd.riverSerial = 0;
 		applyNodeDataToWindow(&nd);
 	}
-        
+
 	if (m_vRemovedWindowVector != Vector2D(0.f, 0.f)) {
 		const auto FOCUSCANDIDATE = g_pCompositor->vectorToWindowIdeal(m_vRemovedWindowVector);
 		if (FOCUSCANDIDATE) {
@@ -327,7 +327,7 @@ void CRiverLayout::applyNodeDataToWindow(SRiverNodeData* pNode) {
 			return;
 
 		PWINDOW->updateSpecialRenderData();
-		
+
 
     const auto* PGAPSIN     = &g_pConfigManager->getConfigValuePtr("general:gaps_in")->intValue;
     const auto* PGAPSOUT    = &g_pConfigManager->getConfigValuePtr("general:gaps_out")->intValue;
@@ -374,8 +374,8 @@ void CRiverLayout::applyNodeDataToWindow(SRiverNodeData* pNode) {
     } else {
 				CBox wb = {calcPos, calcSize};
 				wb.round();
-        PWINDOW->m_vRealSize     = wb.size(); 
-        PWINDOW->m_vRealPosition = wb.pos(); 
+        PWINDOW->m_vRealSize     = wb.size();
+        PWINDOW->m_vRealPosition = wb.pos();
 
         g_pXWaylandManager->setWindowSize(PWINDOW, calcSize);
     }
@@ -399,7 +399,7 @@ bool CRiverLayout::isWindowTiled(CWindow* pWindow) {
 
 void CRiverLayout::resizeActiveWindow(const Vector2D& pixResize, eRectCorner corner, CWindow* pWindow) {
 
-  //River's tiling paradigm has no concept of being able to manually resize windows in a stack/area etc. 
+  //River's tiling paradigm has no concept of being able to manually resize windows in a stack/area etc.
   //If you try to resize a window it just forces it to float. Do the same thing here
   const auto PNODE = getNodeFromWindow(pWindow);
   pWindow->m_bIsFloating = true;
@@ -639,7 +639,7 @@ void CRiverLayout::replaceWindowDataWith(CWindow* from, CWindow* to) {
 
 void CRiverLayout::onEnable() {
     for (auto& w : g_pCompositor->m_vWindows) {
-        if (w->m_bIsFloating || !w->m_bMappedX11 || !w->m_bIsMapped || w->isHidden())
+        if (w->m_bIsFloating || !w->m_bIsMapped || w->isHidden())
             continue;
 
         onWindowCreatedTiling(w.get());
